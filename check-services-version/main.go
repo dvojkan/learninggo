@@ -15,14 +15,7 @@ type ServiceVersion struct {
 func main() {
 	// URLs to fetch data from
 	dev_urls := []string{
-		"http://svc.tri-hub-dev-k8s.fincoreltd.rs/playerprofile/health",
-		"http://rg-svc.tri-hub-dev-k8s.fincoreltd.rs/health",
-		"http://rgconfig-svc.tri-hub-dev-k8s.fincoreltd.rs/health",
-		"http://gameconfig-svc.tri-hub-dev-k8s.fincoreltd.rs/health",
-		//"http://affiliatereporting-svc.tri-hub-dev-k8s.fincoreltd.rs/health",
-		"http://amlservice-svc.tri-hub-dev-k8s.fincoreltd.rs/health",
-		"http://svc.tri-hub-dev-k8s.fincoreltd.rs/wallet/health",
-		"http://casinointegration-svc.tri-hub-dev-k8s.fincoreltd.rs/health",
+		//here add URLs
 	}
 
 	// Loop through each URL
