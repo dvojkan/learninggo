@@ -2,31 +2,14 @@ package main
 
 import (
 	"bufio"
-	"bytes"
 	"fmt"
 	"log"
 	"os"
 	"strings"
 )
 
-func customSplitFunc(data []byte, atEOF bool) (advance int, token []byte, err error) {
-	if atEOF && len(data) == 0 {
-		return 0, nil, nil
-	}
-	if i := bytes.IndexByte(data, ','); i >= 0 {
-		// We found a comma, return the data up to and including it.
-		return i + 1, data[:i], nil
-	}
-	// If at EOF, we have a final, non-terminated line. Return it.
-	if atEOF {
-		return len(data), data, nil
-	}
-	// Request more data.
-	return 0, nil, nil
-}
-
 func main() {
-	//filename := "words.txt"
+	//filename := ""words.txt""
 	if len(os.Args) < 2 {
 		log.Println("need to provide filename!")
 		os.Exit(1)
@@ -39,12 +22,6 @@ func main() {
 	}
 
 	scanner := bufio.NewScanner(file)
-
-	//option 1 - custom split function
-	//scanner.Split(customSplitFunc)
-
-	//option 2 - using ScanWords as split function
-	scanner.Split(bufio.ScanWords)
 
 	var wordCount int
 
