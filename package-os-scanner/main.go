@@ -27,47 +27,50 @@ func customSplitFunc(data []byte, atEOF bool) (advance int, token []byte, err er
 
 func main() {
 	//filename := "words.txt"
-	if len(os.Args) < 2 {
-		log.Println("need to provide filename!")
-		os.Exit(1)
-	}
-
-	file, err := os.Open(os.Args[1])
-	if err != nil {
-		log.Println(err)
-		os.Exit(1)
-	}
-
-	scanner := bufio.NewScanner(file)
-
-	//option 1 - custom split function
-	//scanner.Split(customSplitFunc)
-
-	//option 2 - using ScanWords as split function
-	scanner.Split(bufio.ScanWords)
-
 	var wordCount int
-
-	for scanner.Scan() {
-		words := strings.Fields(scanner.Text())
-		wordCount += len(words)
-	}
-
-	if scanner.Err() != nil {
-		log.Println(scanner.Err())
+	if len(os.Args) < 2 {
+		log.Println("need to provide at least one filename!")
 		os.Exit(1)
 	}
 
-	/*
-		fileContents, err := os.ReadFile(os.Args[1])
+	for _, filename := range os.Args[1:] {
+		file, err := os.Open(filename)
 		if err != nil {
-			log.Println(err)
-			os.Exit(1)
+			log.Printf("%s: %v", filename, err)
+			continue
 		}
-	*/
-	//words := strings.Fields(string(fileContents))
 
-	// words := strings.Fields(string(fileContents))
+		scanner := bufio.NewScanner(file)
+
+		//option 1 - custom split function
+		//scanner.Split(customSplitFunc)
+
+		//option 2 - using ScanWords as split function
+		scanner.Split(bufio.ScanWords)
+
+		for scanner.Scan() {
+			words := strings.Fields(scanner.Text())
+			wordCount += len(words)
+		}
+
+		if scanner.Err() != nil {
+			log.Println("scan error %s: %v", filename, scanner.Err())
+			file.Close()
+			continue
+		}
+
+		/*
+			fileContents, err := os.ReadFile(os.Args[1])
+			if err != nil {
+				log.Println(err)
+				os.Exit(1)
+			}
+		*/
+		//words := strings.Fields(string(fileContents))
+
+		// words := strings.Fields(string(fileContents))
+		file.Close()
+	}
 
 	fmt.Printf("found %d words", wordCount)
 }
