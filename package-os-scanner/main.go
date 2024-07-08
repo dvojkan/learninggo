@@ -43,10 +43,10 @@ func main() {
 		scanner := bufio.NewScanner(file)
 
 		//option 1 - custom split function
-		//scanner.Split(customSplitFunc)
+		scanner.Split(customSplitFunc)
 
 		//option 2 - using ScanWords as split function
-		scanner.Split(bufio.ScanWords)
+		//scanner.Split(bufio.ScanWords)
 
 		for scanner.Scan() {
 			words := strings.Fields(scanner.Text())
@@ -54,7 +54,7 @@ func main() {
 		}
 
 		if scanner.Err() != nil {
-			log.Println("scan error %s: %v", filename, scanner.Err())
+			log.Printf("scan error %s: %v", filename, scanner.Err())
 			file.Close()
 			continue
 		}

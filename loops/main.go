@@ -26,5 +26,6 @@ func main() {
 			}
 		}
 	}
+	//three types of range iterating
 
 }
