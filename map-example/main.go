@@ -65,4 +65,43 @@ func main() {
 	fmt.Println(planets2)
 	fmt.Println(planetsMarkII)
 
+	fmt.Println("-------------------------- before map example with interface")
+
+	//map example with interface
+	// var request map[string]interface{}
+
+	// Initialize the map
+	var request map[string]interface{}
+	request = make(map[string]interface{})
+
+	// Add different types of data to the map
+	request["username"] = "johndoe"
+	request["age"] = 30
+	request["balance"] = 100.50
+	request["is_active"] = true
+	request["preferences"] = map[string]interface{}{
+		"language": "Go",
+		"theme":    "dark",
+	}
+
+	// Print the map
+	fmt.Println("Request map:", request)
+
+	// Accessing elements from the map
+	username := request["username"].(string)
+	age := request["age"].(int)
+	balance := request["balance"].(float64)
+	isActive := request["is_active"].(bool)
+	preferences := request["preferences"].(map[string]interface{})
+	language := preferences["language"].(string) //type assertation
+	theme := preferences["theme"].(string)       //type assertation
+
+	// Print the accessed elements
+	fmt.Println("Username:", username)
+	fmt.Println("Age:", age)
+	fmt.Println("Balance:", balance)
+	fmt.Println("Is Active:", isActive)
+	fmt.Println("Language Preference:", language)
+	fmt.Println("Theme Preference:", theme)
+
 }
