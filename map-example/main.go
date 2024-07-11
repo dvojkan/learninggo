@@ -71,8 +71,8 @@ func main() {
 	// var request map[string]interface{}
 
 	// Initialize the map
-	var request map[string]interface{}
-	request = make(map[string]interface{})
+	// var request map[string]interface{}
+	request := make(map[string]interface{})
 
 	// Add different types of data to the map
 	request["username"] = "johndoe"
