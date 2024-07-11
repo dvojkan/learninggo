@@ -34,14 +34,19 @@ func (s Square) Area() float64 {
 		return s.Length * s.Length
 	}
 */
-func PrintArea(s Shape) {
-	fmt.Println("Area of shape is:", s.Area())
+func PrintArea(s Shape) float64 {
+	return s.Area()
 }
 
 func main() {
 	c := Circle{Radius: 5}
 	s := Square{Length: 4}
+	shapes := []Shape{c, s}
 
-	PrintArea(c)
-	PrintArea(s)
+	for _, shape := range shapes {
+		fmt.Println(PrintArea(shape))
+	}
+
+	//PrintArea(c)
+	//PrintArea(s)
 }
