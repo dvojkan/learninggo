@@ -104,4 +104,69 @@ func main() {
 	fmt.Println("Language Preference:", language)
 	fmt.Println("Theme Preference:", theme)
 
+	//Map with pointers
+	fmt.Println("\n--------------------------MAP WITH POINTERS------------------------------------")
+	// Define the Pocket struct
+	type Pocket struct {
+		Color string
+		Size  int
+	}
+
+	// Initialize the map
+	pockets := make(map[string]*Pocket)
+
+	// Create some Pocket instances and add them to the map
+	// Well I would say that this pocket instance exists out of map, and that we are just storing pointers to these pockets
+	pockets["frontLeft"] = &Pocket{Color: "blue", Size: 10}
+	// this is interesting to me! How & is used for Pocket instances creation!!! It can be said that this is creating
+	// Pocket instance and then take address of it @
+	// so this does two things
+	// pocket := Pocket{Color: "blue", Size: 10}
+	// pocketPointer := &pocket
+	// pockets["frontLeft"] = pocketPointer
+	// here I stumbled upon to new command so I need to clarify this to me since I do not understand it!!
+
+	pockets["frontRight"] = &Pocket{Color: "red", Size: 12}
+	pockets["backLeft"] = &Pocket{Color: "green", Size: 8}
+	pockets["backRight"] = &Pocket{Color: "black", Size: 9}
+
+	// Print the map
+	fmt.Println("Pockets map:")
+	for position, pocket := range pockets {
+		fmt.Printf("%s: Color = %s, Size = %d\n", position, (*pocket).Color, (*pocket).Size) //or the same functionality with implicit dereferencing??
+		fmt.Printf("%s: Color = %s, Size = %d\n", position, pocket.Color, pocket.Size)
+	}
+
+	// Accessing and modifying elements in the map
+	pockets["frontLeft"].Color = "yellow" // what is interesting here is that we have the same syntax as if the Pocket is in the Map not an object outside map - the syntax for changing is the same!!
+	// meaning that we have the same syntax for two different cases. Which is little bit confusing for me.
+	// this can be written as well
+	// (*pockets["frontLeft"]).Color = "yellow"
+	fmt.Println("\nUpdated Pockets map:")
+	for position, pocket := range pockets {
+		fmt.Printf("%s: Color = %s, Size = %d\n", position, pocket.Color, pocket.Size)
+	}
+
+	// here I am adding a line to check if the real object to which frontLeft pointer is showin really contains that new value, meaning that the change happened on object not on map!
+	// so I need to find an address of this object
+	fmt.Println("\nCheck real object!!")
+	pointerToFrontLeftObject := pockets["frontLeft"]                                             // I think that I've got the address of the Pocket object which is assigned to "frontLeft" element of the map!
+	fmt.Println("Value at address pointerToFrontLeftObject:", (*pointerToFrontLeftObject).Color) //or this is the same just another syntax!!
+	fmt.Println("Value at address pointerToFrontLeftObject:", pointerToFrontLeftObject.Color)
+
+	// Adding a new pocket to the map
+	pockets["sidePocket"] = &Pocket{Color: "purple", Size: 7}
+	fmt.Println("\nAfter adding sidePocket:")
+	for position, pocket := range pockets {
+		fmt.Printf("%s: Color = %s, Size = %d\n", position, pocket.Color, pocket.Size)
+	}
+
+	// I have learned some new thing! How to destroy the map:
+	// Destroys the map
+	fmt.Println("\nDestroys the map")
+	pockets = nil
+
+	// If I have Pocket instances in that map, and in this case I mean pointers to pocket instances, by destroying the map, they will still exists.
+	// GC will delete them only when there are no more references to it, including from local variables.
+
 }
