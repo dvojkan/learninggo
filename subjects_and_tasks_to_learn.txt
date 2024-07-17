@@ -1,2 +1,8 @@
 - string comparison
 - contexts
+- slices
+
+* ideas for projects:
+- ftp client server
+- log analyzer by requestid - for the given lists of microservices run through their exposed logs (http request), and show the line with given\searched requestId
+    This project allows me to improve my multitasking skills where I could start several searches in parallel not one by one

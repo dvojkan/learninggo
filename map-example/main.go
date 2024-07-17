@@ -67,7 +67,7 @@ func main() {
 
 	fmt.Println("-------------------------- before map example with interface")
 
-	//map example with interface
+	// map example with interface
 	// var request map[string]interface{}
 
 	// Initialize the map
@@ -133,7 +133,7 @@ func main() {
 	// Print the map
 	fmt.Println("Pockets map:")
 	for position, pocket := range pockets {
-		fmt.Printf("%s: Color = %s, Size = %d\n", position, (*pocket).Color, (*pocket).Size) //or the same functionality with implicit dereferencing??
+		fmt.Printf("%s: Color = %s, Size = %d\n", position, (*pocket).Color, (*pocket).Size) //<- this is explicit dereferencing or the same functionality with implicit dereferencing shown in next line
 		fmt.Printf("%s: Color = %s, Size = %d\n", position, pocket.Color, pocket.Size)
 	}
 
@@ -161,6 +161,26 @@ func main() {
 		fmt.Printf("%s: Color = %s, Size = %d\n", position, pocket.Color, pocket.Size)
 	}
 
+	// Delete an existing pocket from the map!
+	// before deletion from map I would like to save the address of sidePocket object on heap!
+	pointerToSideObject := pockets["sidePocket"]
+	delete(pockets, "sidePocket")
+	fmt.Println("\nAfter deleting sidePocket:")
+	for position, pocket := range pockets {
+		fmt.Printf("%s: Color = %s, Size = %d\n", position, pocket.Color, pocket.Size)
+	}
+	// in this case I have deleted one element of the map, but that object still exists in the heap, and I will simulate this, by adding it again!!
+
+	// now I am going to add it again!!
+	//pockets["sidePocket"] = &Pocket{Color: "purple", Size: 7}
+	pockets["sidePocket"] = pointerToSideObject
+	fmt.Println("\nAfter adding sidePocket for second time:")
+	for position, pocket := range pockets {
+		fmt.Printf("%s: Color = %s, Size = %d\n", position, pocket.Color, pocket.Size)
+	}
+
+	// after this I am getting the same values fof sidePocket, because it is not deleted - just the reference to it in the map pockets
+
 	// I have learned some new thing! How to destroy the map:
 	// Destroys the map
 	fmt.Println("\nDestroys the map")
@@ -168,5 +188,48 @@ func main() {
 
 	// If I have Pocket instances in that map, and in this case I mean pointers to pocket instances, by destroying the map, they will still exists.
 	// GC will delete them only when there are no more references to it, including from local variables.
+
+	//map with slices example
+	fmt.Println("\n--------------------------MAP WITH SLICES------------------------------------")
+	// I've concluded here that I need to learn more about slices!!
+
+	// Declare a map with string keys and slice of string values
+	exampleMap := map[string][]string{
+		"fruits":  {"apple", "banana", "cherry", "plum"},
+		"colors":  {"red", "green", "blue"},
+		"animals": {"cat", "dog", "elephant"},
+	}
+
+	// Print the map
+	fmt.Println(exampleMap)
+
+	// Accessing elements
+	fruits := exampleMap["fruits"]
+	fmt.Println("Fruits:", fruits)
+
+	// Updating elements
+	exampleMap["fruits"] = append(exampleMap["fruits"], "orange")
+	fmt.Println("Updated fruits:", exampleMap["fruits"])
+
+	// Adding a new key-value pair
+	exampleMap["countries"] = []string{"USA", "Canada", "Mexico", "Tunisia", "Algeria"}
+	fmt.Println("Added countries:", exampleMap["countries"])
+
+	// Deleting a key-value pair
+	delete(exampleMap, "colors")
+	fmt.Println("Map after deleting colors:", exampleMap)
+
+	// Checking if a key exists
+	if animals, ok := exampleMap["animals"]; ok {
+		fmt.Println("Animals:", animals)
+	} else {
+		fmt.Println("No animals found")
+	}
+
+	// Iterating over the map
+	fmt.Println("Iterating over the map:")
+	for key, value := range exampleMap {
+		fmt.Println(key, ":", value)
+	}
 
 }
