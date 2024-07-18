@@ -20,6 +20,8 @@ func modifyValue(x *int) {
 }
 
 func main() {
+	// this declares the array of strings
+	// ... means that the number of element in array should be determined by compiler
 	planets := [...]string{
 		"Mercury",
 		"Venus",

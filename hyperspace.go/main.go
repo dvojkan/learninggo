@@ -12,6 +12,8 @@ func hyperspace(worlds []string) {
 	}
 }
 func main() {
+	// this is slice declaration
+	// [] indicates that we are declaring slice, not array
 	planets := []string{" Venus ", "Earth ", " Mars"}
 	hyperspace(planets)
 	fmt.Println(strings.Join(planets, ""))

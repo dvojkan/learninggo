@@ -6,3 +6,4 @@
 - ftp client server
 - log analyzer by requestid - for the given lists of microservices run through their exposed logs (http request), and show the line with given\searched requestId
     This project allows me to improve my multitasking skills where I could start several searches in parallel not one by one
+- I have many projects here which are working with database. I would like to see if I can create some common place (package) where I can put that database related things and that other projects are just consuming this package
